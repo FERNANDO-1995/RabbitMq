@@ -22,13 +22,22 @@ public class MatriculaService {
     }
 
     @RabbitListener(queues = "matriculaQueue")
-    public void salvar(AlunoDto alunoDTO) {
+    public MatriculaDto salvar(AlunoDto dto) {
+
         // Acessando e exibindo os dados diretamente
-        System.out.println("Aluno matriculado: " + alunoDTO.getNome());
-       /* Matricula m = new Matricula();
-        m.setData(f.getData());
+        System.out.println("Aluno matriculado: " + dto.getNome());
+        Matricula m = new Matricula();
+       // m.setData(f.getData());
         //DEPOIS TENHO DE ALTERAR ESTA CENA
+        m.setAluno_id(dto.getId());
+        return new MatriculaDto(rep.save(m));
+    }
+
+    public MatriculaDto salvarMatricula(MatriculaForm f) {
+
+       Matricula m = new Matricula();
+        m.setData(f.getData());
         m.setAluno_id(f.getAluno_id());
-        return new MatriculaDto(rep.save(m));*/
+        return new MatriculaDto(rep.save(m));
     }
 }

@@ -22,6 +22,6 @@ public class MatriculaController {
 
     @PostMapping
     public ResponseEntity<MatriculaDto> store(@RequestBody @Valid MatriculaForm f){
-        return ResponseEntity.status(HttpStatus.CREATED).body(service.salvar(f));
+        return ResponseEntity.status(HttpStatus.CREATED).body(service.salvarMatricula(f));
     }
 }

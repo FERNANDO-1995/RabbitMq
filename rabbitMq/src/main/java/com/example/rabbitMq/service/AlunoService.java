@@ -29,8 +29,8 @@ public class AlunoService {
     @Transactional
     public AlunoDto salvar(AlunoForm f){
     AlunoDto d =new AlunoDto(rep.save(f.alunoMap()));
-        // Envia a mensagem (objeto alunoDTO) para a fila chamada "matriculaQueue"
-//        amqpTemplate.convertAndSend(QUEUE_NAME, d);
+        //Envia a mensagem (objeto alunoDTO) para a fila chamada "matriculaQueue"
+        amqpTemplate.convertAndSend("matriculaExchange","matricula.routing.key", d);
 //        System.out.println("Mensagem enviada para a fila: " + d.getNome());
         return d;
     }

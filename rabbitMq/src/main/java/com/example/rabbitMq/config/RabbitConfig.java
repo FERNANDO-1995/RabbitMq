@@ -9,18 +9,21 @@ import org.springframework.context.annotation.Configuration;
 
 @Configuration
 public class RabbitConfig {
+
     @Bean
     public Queue matriculaQueue() {
         return new Queue("matriculaQueue", true);
     }
 
     @Bean
-    public TopicExchange exchange() {
+    public TopicExchange matriculaExchange() {
         return new TopicExchange("matriculaExchange");
     }
 
     @Bean
-    public Binding binding(Queue matriculaQueue, TopicExchange exchange) {
-        return BindingBuilder.bind(matriculaQueue).to(exchange).with("matricula.routing.key");
+    public Binding binding(TopicExchange exchange) {
+        return BindingBuilder.bind(matriculaQueue())
+                .to(matriculaExchange())
+                .with("matricula.routing.key");
     }
 }
